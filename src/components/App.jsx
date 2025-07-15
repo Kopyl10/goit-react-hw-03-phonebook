@@ -10,7 +10,6 @@ export class App extends Component {
     filter: '',
   };
 
-  // Load contacts from localStorage when component mounts
   componentDidMount() {
     const savedContacts = localStorage.getItem('contacts');
     if (savedContacts) {
@@ -18,14 +17,12 @@ export class App extends Component {
     }
   }
 
-  // Save contacts to localStorage when they change
   componentDidUpdate(prevProps, prevState) {
     if (this.state.contacts !== prevState.contacts) {
       localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
     }
   }
 
-  // Add new contact
   addContact = (name, number) => {
     const normalizedName = name.toLowerCase();
     const isDuplicate = this.state.contacts.some(
@@ -48,19 +45,16 @@ export class App extends Component {
     }));
   };
 
-  // Delete a contact
   deleteContact = contactId => {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== contactId),
     }));
   };
 
-  // Handle filter change
   handleFilterChange = e => {
     this.setState({ filter: e.target.value });
   };
 
-  // Get filtered contacts
   getFilteredContacts = () => {
     const { contacts, filter } = this.state;
     const normalized = filter.toLowerCase();
